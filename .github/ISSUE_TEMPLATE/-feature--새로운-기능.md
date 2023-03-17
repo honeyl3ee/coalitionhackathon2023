@@ -9,10 +9,20 @@ assignees: ''
 
 ## Description
 
+<br><br>
 
+## Frontend
 
+### Todo
+- [ ] 
+- [ ] 
+- [ ]
 
-## Todo
+<br>
+
+## Backend
+
+### Todo
 - [ ] 
 - [ ] 
 - [ ]
