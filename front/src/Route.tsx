@@ -3,7 +3,7 @@ import Home from "./pages/index";
 import Party from "./pages/party";
 import Mypage from "./pages/mypage";
 
-const MainRoute = () => {
+const MainRoute = (): JSX.Element => {
   return (
     <>
       <Routes>

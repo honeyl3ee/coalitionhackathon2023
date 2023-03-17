@@ -1,41 +1,40 @@
-import "./styles/App.scss";
-import React from "react";
-import { Layout } from "antd";
+import React, { useState } from "react";
+import "styles/App.scss";
 import Login from "./pages/login";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import MainRoute from "./Route";
+import instance from "api/api";
+import NavBar from "components/common/NavBar";
+import { Box } from "@mui/material";
 
-const { Content, Footer } = Layout;
+const App = (): JSX.Element => {
+  const loadUserData = () => {
+    try {
+      console.log("loadUserData");
+      const token = localStorage.getItem("accessToken");
+      const userId = localStorage.getItem("userId");
 
-const App = () => {
+      if (!token || !userId) return;
+
+      /* eslint-disable dot-notation */
+      instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } catch (e) {
+      console.log("localStorage is not working");
+    }
+  };
+
+  loadUserData();
+
   return (
-    <div className="full">
-      <Layout className="outer-frame">
-        <Content
-          style={{
-            padding: "50px 50px",
-            width: "800px",
-            height: "100%",
-          }}
-        >
-          <Layout className="inner-frame">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/*" element={<MainRoute />} />
-              </Routes>
-            </BrowserRouter>
-          </Layout>
-        </Content>
-      </Layout>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Ant Design ©2023 Created by Ant UED
-      </Footer>
-    </div>
+    <Box className="full">
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<MainRoute />} />
+        </Routes>
+      </BrowserRouter>
+    </Box>
   );
 };
 export default App;
