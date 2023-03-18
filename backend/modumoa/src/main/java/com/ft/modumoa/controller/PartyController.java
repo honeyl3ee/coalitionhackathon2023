@@ -44,4 +44,10 @@ public class PartyController {
 
         return partyService.deleteParty(id);
     }
+
+    @GetMapping("/party/{id}/participate")
+    public PartyResponseDTO participateParty(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails user) {
+
+        return partyService.participateParty(id, user.getUser());
+    }
 }

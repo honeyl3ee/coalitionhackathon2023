@@ -1,9 +1,11 @@
 package com.ft.modumoa.service;
 
 import com.ft.modumoa.dto.*;
+import com.ft.modumoa.entity.Member;
 import com.ft.modumoa.entity.Party;
 import com.ft.modumoa.entity.User;
 import com.ft.modumoa.repository.CategoryRepository;
+import com.ft.modumoa.repository.MemberRepository;
 import com.ft.modumoa.repository.PartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class PartyService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
 
@@ -66,6 +70,19 @@ public class PartyService {
         partyRepository.deleteById(id);
 
         return new PartyResponseDTO(id);
+    }
+
+    public PartyResponseDTO participateParty(Long partyId, User user) {
+
+        Party party = partyRepository.getReferenceById(partyId);
+        Member member = Member.builder()
+                        .user(user)
+                        .party(party)
+                        .build();
+
+        memberRepository.save(member);
+
+        return new PartyResponseDTO(partyId);
     }
 
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
