@@ -1,6 +1,7 @@
 package com.ft.modumoa.service;
 
 import com.ft.modumoa.dto.PartyCreateResponseDTO;
+import com.ft.modumoa.dto.PartyInfoDTO;
 import com.ft.modumoa.dto.PartyListDTO;
 import com.ft.modumoa.dto.PartyCreateRequestDTO;
 import com.ft.modumoa.entity.Party;
@@ -22,12 +23,14 @@ public class PartyService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private MemberService memberService;
 
     public List<PartyListDTO> getAllPartyList() {
 
         return partyRepository.findAll()
                 .stream()
-                .map(this::convertEntityToDto)
+                .map(this::convertEntityToPartyListDTO)
                 .collect(Collectors.toList());
     }
 
@@ -42,7 +45,30 @@ public class PartyService {
                 .build();
     }
 
-    private PartyListDTO convertEntityToDto(Party party) {
+    public PartyInfoDTO getPartyInfo(Long id) {
+        Party party = partyRepository.getReferenceById(id);
+
+        return convertEntityToPartyInfoDTO(party);
+    }
+
+    private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
+        return PartyInfoDTO.builder()
+                .id(party.getId())
+                .writer(party.getWriter().getIntraId())
+                .title(party.getTitle())
+                .content(party.getContent())
+                .category(party.getCategory().getType())
+                .max(party.getMax())
+                .current(party.getCurrent())
+                .dueDate(party.getDeadline())
+                .participator(memberService.getMemberList(party))
+                .status(LocalDateTime.now().isBefore(party.getDeadline()))
+                .build();
+    }
+
+
+
+    private PartyListDTO convertEntityToPartyListDTO(Party party) {
 
         return PartyListDTO.builder()
                 .id(party.getId())
@@ -58,9 +84,10 @@ public class PartyService {
     }
 
     private Party convertDtoToEntity(PartyCreateRequestDTO partyRequestDTO, User user){
-        Party party = Party.builder()
+
+        return Party.builder()
                 .writer(user)
-                .category(categoryRepository.findByType(partyRequestDTO.getCategory()))
+                .category(categoryRepository.getByType(partyRequestDTO.getCategory()))
                 .title(partyRequestDTO.getTitle())
                 .content(partyRequestDTO.getContent())
                 .max(partyRequestDTO.getMax())
