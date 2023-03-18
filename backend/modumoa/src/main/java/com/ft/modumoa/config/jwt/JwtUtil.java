@@ -38,7 +38,8 @@ public class JwtUtil {
         return token;
     }
 
-// todo jwt 토큰에 유니크 아이디 넣기, 해석할 때 id 뽑아서 검증하기
+
+    // todo jwt 토큰에 유니크 아이디 넣기, 해석할 때 id 뽑아서 검증하기
     public VerifyResult verifyToken(String token) {
         try {
             DecodedJWT verify = JWT.require(Algorithm.HMAC256(tokenSecret)).build().verify(token);
@@ -48,12 +49,16 @@ public class JwtUtil {
                     .username(verify.getSubject()).build();
         } catch (Exception e) {
 
-            DecodedJWT decode = JWT.decode(token);
+            try {
+                DecodedJWT decode = JWT.decode(token);
 
-            return VerifyResult.builder()
-                    .success(false)
-                    .username(decode.getSubject()).build();
+                return VerifyResult.builder()
+                        .success(false)
+                        .username(decode.getSubject()).build();
+            } catch (Exception ex) {
+                // todo log
+            }
         }
+        return null;
     }
-
 }

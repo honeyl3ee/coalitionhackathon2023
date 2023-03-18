@@ -5,6 +5,7 @@ import com.ft.modumoa.config.jwt.JwtProperties;
 import com.ft.modumoa.config.jwt.JwtUtil;
 import com.ft.modumoa.config.jwt.JwtAuthenticationFilter;
 import com.ft.modumoa.config.oauth.CustomOAuth2UserService;
+import com.ft.modumoa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,11 +48,14 @@ public class SecurityConfig {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(new JwtAuthenticationFilter(principalDetailsService, jwtUtil), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(principalDetailsService, jwtUtil, userRepository), BasicAuthenticationFilter.class);
 
         http
                 .csrf().disable()
