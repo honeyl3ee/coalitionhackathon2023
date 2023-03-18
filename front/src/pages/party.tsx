@@ -1,7 +1,12 @@
 import { useState } from "react";
-import Stack from "@mui/joy/Stack";
-import Sheet from "@mui/joy/Sheet";
 import PartyCard from "components/party/PartyCard";
+import CreateModal from "components/party/CreateModal";
+import Stack from "@mui/joy/Stack";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Box } from "@mui/joy";
+import { IconButton } from "@mui/joy";
+import { Typography } from "@mui/joy";
+import { Divider } from "@mui/material";
 
 export type PartyInfo = {
   id: number;
@@ -34,10 +39,10 @@ const Party = (): JSX.Element => {
       category: "배달",
       max: 5,
       current: 3,
-      due_date: new Date(),
+      due_date: new Date("2023-03-17 23:00:00"),
       created_date: new Date("2023-03-17 22:00:00"),
       writer: "danpark",
-      status: false,
+      status: true,
     },
     {
       id: 2,
@@ -45,10 +50,10 @@ const Party = (): JSX.Element => {
       category: "배달",
       max: 5,
       current: 3,
-      due_date: new Date(),
+      due_date: new Date("2023-03-23 23:00:00"),
       created_date: new Date("2023-03-17 22:00:00"),
       writer: "danpark",
-      status: false,
+      status: true,
     },
     {
       id: 3,
@@ -56,10 +61,10 @@ const Party = (): JSX.Element => {
       category: "배달",
       max: 5,
       current: 3,
-      due_date: new Date(),
+      due_date: new Date("2023-03-23 23:00:00"),
       created_date: new Date("2023-03-17 22:00:00"),
       writer: "danpark",
-      status: false,
+      status: true,
     },
     {
       id: 4,
@@ -67,10 +72,10 @@ const Party = (): JSX.Element => {
       category: "배달",
       max: 5,
       current: 3,
-      due_date: new Date(),
+      due_date: new Date("2023-03-23 23:00:00"),
       created_date: new Date("2023-03-17 22:00:00"),
       writer: "danpark",
-      status: false,
+      status: true,
     },
     {
       id: 5,
@@ -78,39 +83,33 @@ const Party = (): JSX.Element => {
       category: "배달",
       max: 5,
       current: 3,
-      due_date: new Date(),
+      due_date: new Date("2023-03-23 23:00:00"),
       created_date: new Date("2023-03-17 22:00:00"),
       writer: "danpark",
-      status: false,
+      status: true,
     },
   ]);
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
-    <div style={{ height: "92%" }}>
-      <Sheet
-        sx={{
-          width: "90%",
-          height: "85%",
-          mx: "auto", // margin left & right
-          my: 3, // margin top & botom
-          py: 1, // padding top & bottom
-          px: 1, // padding left & right
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          borderRadius: "sm",
-          boxShadow: "md",
-          alignItems: "center",
+    <>
+      <Stack sx={{ overflow: "auto", px: 1, height: "90%" }}>
+        {list.map((item) => (
+          <PartyCard party={item} />
+        ))}
+      </Stack>
+      <IconButton
+        aria-label="delete"
+        variant="plain"
+        onClick={() => {
+          setIsOpen(true);
         }}
-        variant="outlined"
       >
-        <Stack sx={{ overflow: "auto", px: 1 }}>
-          {list.map((item) => (
-            <PartyCard party={item} />
-          ))}
-        </Stack>
-      </Sheet>
-    </div>
+        <AddCircleIcon fontSize="large" />
+      </IconButton>
+      <CreateModal isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 };
 
