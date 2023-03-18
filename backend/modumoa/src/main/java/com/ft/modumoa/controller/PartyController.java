@@ -1,10 +1,7 @@
 package com.ft.modumoa.controller;
 
 import com.ft.modumoa.config.auth.PrincipalDetails;
-import com.ft.modumoa.dto.PartyCreateResponseDTO;
-import com.ft.modumoa.dto.PartyInfoDTO;
-import com.ft.modumoa.dto.PartyListDTO;
-import com.ft.modumoa.dto.PartyCreateRequestDTO;
+import com.ft.modumoa.dto.*;
 import com.ft.modumoa.service.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +22,7 @@ public class PartyController {
     }
 
     @PostMapping("/party/create")
-    public PartyCreateResponseDTO createParty(@RequestBody PartyCreateRequestDTO partyRequestDTO, @AuthenticationPrincipal PrincipalDetails user) {
+    public PartyResponseDTO createParty(@RequestBody PartyCreateRequestDTO partyRequestDTO, @AuthenticationPrincipal PrincipalDetails user) {
 
         return partyService.createParty(partyRequestDTO, user.getUser());
     }
@@ -34,5 +31,11 @@ public class PartyController {
     public PartyInfoDTO getPartyInfo(@PathVariable Long id) {
 
         return partyService.getPartyInfo(id);
+    }
+
+    @PutMapping("/party/{id}/edit")
+    public PartyResponseDTO editParty(@PathVariable Long id, @RequestBody PartyEditRequestDTO partyEditRequestDTO) {
+
+        return partyService.editParty(id, partyEditRequestDTO);
     }
 }

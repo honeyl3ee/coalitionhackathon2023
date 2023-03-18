@@ -4,7 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
-public class PartyCreateResponseDTO {
+public class PartyResponseDTO {
+
     private Long id;
+
+    public PartyResponseDTO(Long id) {
+        this.id = id;
+    }
 }

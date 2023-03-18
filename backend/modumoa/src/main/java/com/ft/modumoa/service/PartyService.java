@@ -1,9 +1,6 @@
 package com.ft.modumoa.service;
 
-import com.ft.modumoa.dto.PartyCreateResponseDTO;
-import com.ft.modumoa.dto.PartyInfoDTO;
-import com.ft.modumoa.dto.PartyListDTO;
-import com.ft.modumoa.dto.PartyCreateRequestDTO;
+import com.ft.modumoa.dto.*;
 import com.ft.modumoa.entity.Party;
 import com.ft.modumoa.entity.User;
 import com.ft.modumoa.repository.CategoryRepository;
@@ -34,24 +31,39 @@ public class PartyService {
                 .collect(Collectors.toList());
     }
 
-    public PartyCreateResponseDTO createParty(PartyCreateRequestDTO partyRequestDTO, User user) {
+    public PartyResponseDTO createParty(PartyCreateRequestDTO partyRequestDTO, User user) {
 
         Party party = convertDtoToEntity(partyRequestDTO, user);
 
         party = partyRepository.save(party);
 
-        return PartyCreateResponseDTO.builder()
-                .id(party.getId())
-                .build();
+        return new PartyResponseDTO(party.getId());
     }
 
     public PartyInfoDTO getPartyInfo(Long id) {
+
         Party party = partyRepository.getReferenceById(id);
 
         return convertEntityToPartyInfoDTO(party);
     }
 
+    public PartyResponseDTO editParty(Long id, PartyEditRequestDTO partyEditRequestDTO) {
+
+        Party party = partyRepository.getReferenceById(id);
+
+        party.setTitle(partyEditRequestDTO.getTitle());
+        party.setContent(partyEditRequestDTO.getContent());
+        party.setCategory(categoryRepository.getByType(partyEditRequestDTO.getCategory()));
+        party.setMax(partyEditRequestDTO.getMax());
+        party.setDeadline(partyEditRequestDTO.getDueDate());
+
+        partyRepository.save(party);
+
+        return new PartyResponseDTO(id);
+    }
+
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
+
         return PartyInfoDTO.builder()
                 .id(party.getId())
                 .writer(party.getWriter().getIntraId())
@@ -65,7 +77,6 @@ public class PartyService {
                 .status(LocalDateTime.now().isBefore(party.getDeadline()))
                 .build();
     }
-
 
 
     private PartyListDTO convertEntityToPartyListDTO(Party party) {
@@ -83,7 +94,7 @@ public class PartyService {
                 .build();
     }
 
-    private Party convertDtoToEntity(PartyCreateRequestDTO partyRequestDTO, User user){
+    private Party convertDtoToEntity(PartyCreateRequestDTO partyRequestDTO, User user) {
 
         return Party.builder()
                 .writer(user)
