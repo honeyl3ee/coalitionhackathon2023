@@ -1,5 +1,6 @@
 package com.ft.modumoa.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @Entity
 public class Party {
 
