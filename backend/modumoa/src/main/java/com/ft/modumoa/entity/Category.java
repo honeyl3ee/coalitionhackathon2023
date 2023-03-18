@@ -1,6 +1,7 @@
 package com.ft.modumoa.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class Category {
 
@@ -15,4 +17,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
+
+    public Category(Long id, String type) {
+        this.id = id;
+        this.type = type;
+    }
 }
