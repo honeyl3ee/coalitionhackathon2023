@@ -62,6 +62,12 @@ public class PartyService {
         return new PartyResponseDTO(id);
     }
 
+    public PartyResponseDTO deleteParty(Long id) {
+        partyRepository.deleteById(id);
+
+        return new PartyResponseDTO(id);
+    }
+
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
 
         return PartyInfoDTO.builder()

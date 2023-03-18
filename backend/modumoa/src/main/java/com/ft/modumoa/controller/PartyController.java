@@ -38,4 +38,10 @@ public class PartyController {
 
         return partyService.editParty(id, partyEditRequestDTO);
     }
+
+    @DeleteMapping("/party/{id}/delete")
+    public PartyResponseDTO deleteParty(@PathVariable Long id) {
+
+        return partyService.deleteParty(id);
+    }
 }
