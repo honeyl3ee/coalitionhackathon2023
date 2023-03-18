@@ -22,7 +22,7 @@ const Home = (): JSX.Element => {
     // ] = `Bearer ${response.data.accessToken}`;
     setTimeout(() => {
       navigate("/party");
-    }, 3000);
+    }, 1000);
   };
 
   useEffect(() => {
