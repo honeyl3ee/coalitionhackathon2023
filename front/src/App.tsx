@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "styles/App.scss";
+import Sheet from "@mui/joy/Sheet";
 import Login from "./pages/login";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import MainRoute from "./Route";
@@ -29,10 +30,28 @@ const App = (): JSX.Element => {
     <Box className="full">
       <BrowserRouter>
         <NavBar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<MainRoute />} />
-        </Routes>
+        <Sheet
+          sx={{
+            width: "90%",
+            height: "85%",
+            mx: "auto", // margin left & right
+            my: 3, // margin top & botom
+            py: 1, // padding top & bottom
+            px: 1, // padding left & right
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            borderRadius: "sm",
+            boxShadow: "md",
+            alignItems: "center",
+          }}
+          variant="outlined"
+        >
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<MainRoute />} />
+          </Routes>
+        </Sheet>
       </BrowserRouter>
     </Box>
   );

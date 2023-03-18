@@ -26,10 +26,7 @@ const Login = (): JSX.Element => {
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            borderRadius: "sm",
-            boxShadow: "md",
           }}
-          variant="outlined"
         >
           <div style={{ height: 150 }}>
             <Typography level="h4" component="h1">
