@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private User user;
+    private final User user;
     private Map<String, Object> attributes;
 
     public PrincipalDetails(User user) {
@@ -39,6 +39,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     @Override
     public String getPassword() {
         return null;
+    }
+    public User getUser(){
+        return user;
     }
 
     public Long getUniqueId(){
