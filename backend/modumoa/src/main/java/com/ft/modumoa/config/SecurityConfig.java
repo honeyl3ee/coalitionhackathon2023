@@ -66,6 +66,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers("/user/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/party/**").access("hasRole('ROLE_USER')")
                 .anyRequest()
                 .permitAll()
                 .and()
