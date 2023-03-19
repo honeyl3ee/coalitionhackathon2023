@@ -89,7 +89,7 @@ const ModalInput = (props: HandlePartyForm) => {
                 onChange={(newValue) => {
                   props.setPartyForm({
                     ...props.partyForm,
-                    due_date: newValue?.format("YYYY-MM-DDTHH:mm:ss.000"),
+                    due_date: newValue,
                   });
                 }}
               />

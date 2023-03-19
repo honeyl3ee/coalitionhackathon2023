@@ -30,14 +30,18 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
     due_date: dayjs(new Date()),
     category: "",
   });
-
   const createParty = async () => {
     if (partyForm.title === "") return alert("제목을 입력해주세요!");
     if (partyForm.content === "") return alert("내용을 입력해주세요!");
     if (!partyForm.due_date || partyForm.due_date < dayjs(new Date()))
       return alert("현재 이후의 날짜를 선택해주세요!");
     if (partyForm.category === "") return alert("카테고리를 선택해주세요!");
-    const response = await PartyService.createParty(partyForm);
+    const newPartyForm = {
+      ...partyForm,
+      due_date: partyForm.due_date.format("YYYY-MM-DDTHH:mm:ss.000"),
+    };
+
+    const response = await PartyService.createParty(newPartyForm);
     navigate(`/party/${response.data.id}`);
   };
 
