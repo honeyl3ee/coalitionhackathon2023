@@ -4,7 +4,6 @@ import qs from "query-string";
 import Loading from "components/common/Loading";
 import instance from "api/api";
 import "styles/index.scss";
-import { es } from "date-fns/locale";
 
 const Home = (): JSX.Element => {
   const navigate = useNavigate();
@@ -18,8 +17,8 @@ const Home = (): JSX.Element => {
       instance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${params.token}`;
-      navigate("/party");
     }
+    navigate("/party");
   };
 
   useEffect(() => {

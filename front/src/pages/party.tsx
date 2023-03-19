@@ -92,9 +92,9 @@ const Party = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const getPartyList = async () => {
-    // const response = await PartyService.getPartyList();
-    // console.log(response.data);
-    // setList(response.data);
+    const response = await PartyService.getPartyList();
+    console.log(response.data);
+    setList(response.data);
   };
 
   useEffect(() => {
@@ -104,8 +104,8 @@ const Party = (): JSX.Element => {
   return (
     <Box sx={{ height: "100%" }}>
       <Stack sx={{ overflow: "auto", px: 1, height: "90%" }}>
-        {list.map((item) => (
-          <PartyCard party={item} />
+        {list.map((item, index) => (
+          <PartyCard key={index} party={item} />
         ))}
       </Stack>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
