@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query(value = "SELECT * FROM Category WHERE type = :type", nativeQuery = true)
-    public Category getByType(@Param("type") String type);
+    Category getByType(@Param("type") String type);
 }
