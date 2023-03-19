@@ -54,7 +54,7 @@ const PartyDetail = (): JSX.Element => {
     const myResponse = await UserService.getMyUserId();
     setIntraId(myResponse.data.intra_id);
     return new Promise((resolve) => {
-      resolve();
+      resolve(true);
     });
   };
 
