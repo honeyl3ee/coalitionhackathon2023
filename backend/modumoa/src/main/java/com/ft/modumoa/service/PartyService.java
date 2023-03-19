@@ -142,7 +142,7 @@ public class PartyService {
                 .title(partyRequestDTO.getTitle())
                 .content(partyRequestDTO.getContent())
                 .max(partyRequestDTO.getMax())
-                .current(0)
+                .current(1)
                 .create_at(LocalDateTime.now())
                 .deadline(partyRequestDTO.getDueDate())
                 .build();

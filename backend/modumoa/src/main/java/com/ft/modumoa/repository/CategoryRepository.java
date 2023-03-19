@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query(value = "SELECT * FROM Category WHERE type = :type", nativeQuery = true)
+    @Query(value = "SELECT * FROM category WHERE type = :type", nativeQuery = true)
     Category getByType(@Param("type") String type);
 }
