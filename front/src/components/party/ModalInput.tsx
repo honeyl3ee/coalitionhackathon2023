@@ -29,12 +29,12 @@ const ModalInput = (props: HandlePartyForm) => {
       }}
     >
       <Typography sx={{ display: "flex", alignItems: "center" }}>
-        {props.type === "maxCount" ? "모집 인원" : ""}
-        {props.type === "dueDate" ? "모집 마감" : ""}
+        {props.type === "max" ? "모집 인원" : ""}
+        {props.type === "due_date" ? "모집 마감" : ""}
         {props.type === "category" ? "카테고리" : ""}
       </Typography>
       <Box style={{ width: 300, margin: "0 auto" }}>
-        {props.type === "maxCount" ? (
+        {props.type === "max" ? (
           <Slider
             aria-label="Small steps"
             defaultValue={2}
@@ -48,7 +48,7 @@ const ModalInput = (props: HandlePartyForm) => {
                 const target: HTMLInputElement = e.target as HTMLInputElement;
                 props.setPartyForm({
                   ...props.partyForm,
-                  maxCount: target.value,
+                  max: target.value,
                 });
               }
             }}
@@ -81,13 +81,16 @@ const ModalInput = (props: HandlePartyForm) => {
         ) : (
           ""
         )}
-        {props.type === "dueDate" ? (
+        {props.type === "due_date" ? (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DateTimePicker"]}>
               <DateTimePicker
-                value={props.partyForm.dueDate}
+                value={props.partyForm.due_date}
                 onChange={(newValue) => {
-                  props.setPartyForm({ ...props.partyForm, dueDate: newValue });
+                  props.setPartyForm({
+                    ...props.partyForm,
+                    due_date: newValue,
+                  });
                 }}
               />
             </DemoContainer>

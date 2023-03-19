@@ -16,8 +16,8 @@ type HandleIsOpen = { isOpen: boolean; setIsOpen: Function };
 export type PartyForm = {
   title: string | null;
   content: string | null;
-  maxCount: number | null;
-  dueDate: Dayjs | null;
+  max: number | null;
+  due_date: Dayjs | null;
   category: string | null;
 };
 
@@ -26,15 +26,15 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
   const [partyForm, setPartyForm] = useState<PartyForm>({
     title: "",
     content: "",
-    maxCount: 2,
-    dueDate: dayjs(new Date()),
+    max: 2,
+    due_date: dayjs(new Date()),
     category: "",
   });
 
   const createParty = async () => {
     if (partyForm.title === "") return alert("제목을 입력해주세요!");
     if (partyForm.content === "") return alert("내용을 입력해주세요!");
-    if (!partyForm.dueDate || partyForm.dueDate < dayjs(new Date()))
+    if (!partyForm.due_date || partyForm.due_date < dayjs(new Date()))
       return alert("현재 이후의 날짜를 선택해주세요!");
     if (partyForm.category === "") return alert("카테고리를 선택해주세요!");
     const response = await PartyService.createParty(partyForm);
@@ -90,12 +90,12 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
         <ModalInput
           partyForm={partyForm}
           setPartyForm={setPartyForm}
-          type="maxCount"
+          type="max"
         />
         <ModalInput
           partyForm={partyForm}
           setPartyForm={setPartyForm}
-          type="dueDate"
+          type="due_date"
         />
         <ModalInput
           partyForm={partyForm}
