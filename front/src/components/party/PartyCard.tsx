@@ -106,7 +106,7 @@ const PartyCard = ({ party }: PartyProps): JSX.Element => {
             marginLeft: "auto",
           }}
         >
-          {timer(party.created_date)}
+          {timer(party.create_at)}
         </Typography>
       </CardOverflow>
     </Card>

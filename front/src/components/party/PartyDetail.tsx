@@ -21,7 +21,7 @@ export type PartyDetailInfo = {
   max: number;
   current: number;
   due_date: Date;
-  created_date: Date;
+  create_at: Date;
   writer: string;
   participant: string[];
   status: boolean;
@@ -40,7 +40,7 @@ const PartyDetail = (): JSX.Element => {
     max: 3,
     current: 3,
     due_date: new Date("2023-03-22 23:00:00"),
-    created_date: new Date("2023-03-17 23:00:00"),
+    create_at: new Date("2023-03-17 23:00:00"),
     writer: "danpark",
     participant: ["wonlim", "chanhyle"],
     status: true,

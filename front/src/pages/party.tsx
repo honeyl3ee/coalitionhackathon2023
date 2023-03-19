@@ -14,7 +14,7 @@ export type PartyInfo = {
   max: number;
   current: number;
   due_date: Date;
-  created_date: Date;
+  create_at: Date;
   writer: string;
   status: boolean;
 };
@@ -93,15 +93,11 @@ const Party = (): JSX.Element => {
 
   const getPartyList = async () => {
     const response = await PartyService.getPartyList();
-    // for (const index in response.data)
-    // {
-    //   response.data[index]
-    // }
     setList(
       response.data.map((item: any) => ({
         ...item,
         due_date: new Date(item.due_date),
-        created_date: new Date(item.created_date),
+        create_at: new Date(item.create_at),
       }))
     );
   };
