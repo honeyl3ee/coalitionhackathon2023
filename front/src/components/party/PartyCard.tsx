@@ -28,10 +28,11 @@ const PartyCard = ({ party }: PartyProps): JSX.Element => {
   const navigate = useNavigate();
 
   const timer = (createdDate: Date): string => {
-    const diffHours = differenceInHours(new Date(), createdDate);
-    const diffMinutes = differenceInMinutes(new Date(), createdDate);
+    const diffHours: number = differenceInHours(new Date(), createdDate);
+    const diffMinutes: number = differenceInMinutes(new Date(), createdDate);
     if (diffHours === 0) return diffMinutes + " minutes ago";
-    else return diffHours + " hours ago";
+    else if (diffHours < 24) return diffHours + " hours ago";
+    else return Math.floor(diffHours / 24) + " days ago";
   };
 
   return (
@@ -44,7 +45,7 @@ const PartyCard = ({ party }: PartyProps): JSX.Element => {
           : { width: 320, marginTop: 1, bgcolor: "#ffffff" }
       }
     >
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Typography level="h1" fontSize="md" sx={{ mb: 0.5 }}>
           {party.title}
         </Typography>
