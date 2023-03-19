@@ -20,9 +20,9 @@ const Home = (): JSX.Element => {
     // instance.defaults.headers.common[
     //   "Authorization"
     // ] = `Bearer ${response.data.accessToken}`;
-    setTimeout(() => {
-      navigate("/party");
-    }, 1000);
+    // setTimeout(() => {
+    //   navigate("/party");
+    // }, 1000);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Home = (): JSX.Element => {
     <div className="redirect-container">
       <div className="redirect-box">
         <Loading />
-        <h3>Now Loading...</h3>
+        <h3>로그인 중입니다...</h3>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "styles/App.scss";
 import Sheet from "@mui/joy/Sheet";
-import Login from "./pages/login";
+import Login from "pages/login";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import MainRoute from "./Route";
 import instance from "api/api";
@@ -12,10 +12,9 @@ const App = (): JSX.Element => {
   const loadUserData = () => {
     try {
       console.log("loadUserData");
-      const token = localStorage.getItem("accessToken");
-      const userId = localStorage.getItem("userId");
+      const token: string | null = localStorage.getItem("accessToken");
 
-      if (!token || !userId) return;
+      if (!token) return;
 
       /* eslint-disable dot-notation */
       instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
