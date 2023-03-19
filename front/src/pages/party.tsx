@@ -21,80 +21,89 @@ export type PartyInfo = {
 
 const Party = (): JSX.Element => {
   const [list, setList] = useState<PartyInfo[]>([
-    {
-      id: 0,
-      title: "SSDC 같이 참석할 분",
-      category: "컨퍼런스",
-      max: 3,
-      current: 1,
-      due_date: new Date("2023-03-22 23:00:00"),
-      created_date: new Date("2023-03-17 23:00:00"),
-      writer: "danpark",
-      status: true,
-    },
-    {
-      id: 1,
-      title: "저녁에 피자 드실 분",
-      category: "배달",
-      max: 5,
-      current: 3,
-      due_date: new Date("2023-03-17 23:00:00"),
-      created_date: new Date("2023-03-17 22:00:00"),
-      writer: "danpark",
-      status: true,
-    },
-    {
-      id: 2,
-      title: "저녁에 피자 드실 분",
-      category: "배달",
-      max: 5,
-      current: 3,
-      due_date: new Date("2023-03-23 23:00:00"),
-      created_date: new Date("2023-03-17 22:00:00"),
-      writer: "danpark",
-      status: true,
-    },
-    {
-      id: 3,
-      title: "저녁에 피자 드실 분",
-      category: "배달",
-      max: 5,
-      current: 3,
-      due_date: new Date("2023-03-23 23:00:00"),
-      created_date: new Date("2023-03-17 22:00:00"),
-      writer: "danpark",
-      status: true,
-    },
-    {
-      id: 4,
-      title: "저녁에 피자 드실 분",
-      category: "배달",
-      max: 5,
-      current: 3,
-      due_date: new Date("2023-03-23 23:00:00"),
-      created_date: new Date("2023-03-17 22:00:00"),
-      writer: "danpark",
-      status: true,
-    },
-    {
-      id: 5,
-      title: "저녁에 피자 드실 분",
-      category: "배달",
-      max: 5,
-      current: 3,
-      due_date: new Date("2023-03-23 23:00:00"),
-      created_date: new Date("2023-03-17 22:00:00"),
-      writer: "danpark",
-      status: true,
-    },
+    // {
+    //   id: 0,
+    //   title: "SSDC 같이 참석할 분",
+    //   category: "컨퍼런스",
+    //   max: 3,
+    //   current: 1,
+    //   due_date: new Date("2023-03-22 23:00:00"),
+    //   created_date: new Date("2023-03-17 23:00:00"),
+    //   writer: "danpark",
+    //   status: true,
+    // },
+    // {
+    //   id: 1,
+    //   title: "저녁에 피자 드실 분",
+    //   category: "배달",
+    //   max: 5,
+    //   current: 3,
+    //   due_date: new Date("2023-03-17 23:00:00"),
+    //   created_date: new Date("2023-03-17 22:00:00"),
+    //   writer: "danpark",
+    //   status: true,
+    // },
+    // {
+    //   id: 2,
+    //   title: "저녁에 피자 드실 분",
+    //   category: "배달",
+    //   max: 5,
+    //   current: 3,
+    //   due_date: new Date("2023-03-23 23:00:00"),
+    //   created_date: new Date("2023-03-17 22:00:00"),
+    //   writer: "danpark",
+    //   status: true,
+    // },
+    // {
+    //   id: 3,
+    //   title: "저녁에 피자 드실 분",
+    //   category: "배달",
+    //   max: 5,
+    //   current: 3,
+    //   due_date: new Date("2023-03-23 23:00:00"),
+    //   created_date: new Date("2023-03-17 22:00:00"),
+    //   writer: "danpark",
+    //   status: true,
+    // },
+    // {
+    //   id: 4,
+    //   title: "저녁에 피자 드실 분",
+    //   category: "배달",
+    //   max: 5,
+    //   current: 3,
+    //   due_date: new Date("2023-03-23 23:00:00"),
+    //   created_date: new Date("2023-03-17 22:00:00"),
+    //   writer: "danpark",
+    //   status: true,
+    // },
+    // {
+    //   id: 5,
+    //   title: "저녁에 피자 드실 분",
+    //   category: "배달",
+    //   max: 5,
+    //   current: 3,
+    //   due_date: "2023-03-23 23:00:00"
+    //   created_date: "2023-03-17 22:00:00",
+    //   writer: "danpark",
+    //   status: true,
+    // },
   ]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const getPartyList = async () => {
     const response = await PartyService.getPartyList();
-    console.log(response.data);
-    setList(response.data);
+    // for (const index in response.data)
+    // {
+    //   response.data[index]
+    // }
+    setList(
+      response.data.map((item: any) => ({
+        ...item,
+        due_date: new Date(item.due_date),
+        created_date: new Date(item.created_date),
+      }))
+    );
   };
 
   useEffect(() => {
