@@ -53,7 +53,9 @@ const PartyDetail = (): JSX.Element => {
   const getUserId = async () => {
     const myResponse = await UserService.getMyUserId();
     setIntraId(myResponse.data.intra_id);
-    return new Promise(() => {});
+    return new Promise((resolve) => {
+      resolve();
+    });
   };
 
   const isParticipant = (user: string): boolean => {
