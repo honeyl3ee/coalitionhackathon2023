@@ -128,7 +128,9 @@ const PartyDetail = (): JSX.Element => {
             color="error"
             disabled={isWriter}
             onClick={async () => {
-              const response = await PartyService.participatePartyDetail(id);
+              const response = await PartyService.cancelParticipatePartyDetail(
+                id
+              );
               setIsCheck(false);
             }}
           >
@@ -139,9 +141,7 @@ const PartyDetail = (): JSX.Element => {
             variant="contained"
             disabled={isWriter}
             onClick={async () => {
-              const response = await PartyService.cancelParticipatePartyDetail(
-                id
-              );
+              const response = await PartyService.participatePartyDetail(id);
               setIsCheck(true);
             }}
           >
