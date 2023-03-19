@@ -68,6 +68,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/user/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/party/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/mypage/**").access("hasRole('ROLE_USER')")
                 .anyRequest()
                 .permitAll()
                 .and()
