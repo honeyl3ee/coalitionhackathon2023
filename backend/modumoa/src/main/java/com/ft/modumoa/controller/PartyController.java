@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 public class PartyController {
 
@@ -53,11 +52,12 @@ public class PartyController {
     @GetMapping("/party/{id}/participate")
     public PartyResponseDTO participateParty(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails user) {
 
-        String message = slackBotService.getPrefixMessage(id, user.getUser());
+        String pMessage = slackBotService.getParticipationMessage(id, user.getUser());
+        String fMessage = slackBotService.getWhenFullMessage(id, user.getUser());
 
         partyService.participateParty(id, user.getUser());
-        slackBotService.sendMessageToUser(id, message + "에 참여를 신청하였습니다.");
-        slackBotService.isFull(id, user.getUser(), message + " 모집이 완료되었습니다.");
+        slackBotService.sendMessageToUser(id, pMessage + "에 참여를 신청하였습니다.");
+        slackBotService.isFull(id, user.getUser(), fMessage + " 모집이 완료되었습니다.");
 
         return partyService.makePartyResponseDTO(id);
     }
@@ -65,7 +65,7 @@ public class PartyController {
     @GetMapping("/party/{id}/participate/cancel")
     public PartyResponseDTO cancelParty(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails user) {
 
-        String message = slackBotService.getPrefixMessage(id, user.getUser());
+        String message = slackBotService.getParticipationMessage(id, user.getUser());
 
         partyService.cancelParty(id, user.getUser());
         slackBotService.sendMessageToUser(id, message + " 참여를 취소하였습니다.");
