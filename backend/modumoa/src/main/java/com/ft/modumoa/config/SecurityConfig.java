@@ -86,7 +86,9 @@ public class SecurityConfig {
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                         Authentication authentication) throws IOException, ServletException {
                         String jwtToken = jwtUtil.makeAuthToken(authentication);
-                        response.addHeader(HttpHeaders.AUTHORIZATION, JwtProperties.TOKEN_PREFIX + jwtToken);
+
+//                        response.addHeader(HttpHeaders.AUTHORIZATION, JwtProperties.TOKEN_PREFIX + jwtToken);
+                        response.sendRedirect("http://localhost:3000/?token=" + jwtToken);
                     }
                 })
                 .failureHandler(new AuthenticationFailureHandler() {

@@ -16,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.Part;
-
 import static com.ft.modumoa.config.SlackBotProperties.*;
 import static com.ft.modumoa.config.jwt.JwtProperties.TOKEN_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
