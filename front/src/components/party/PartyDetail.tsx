@@ -73,7 +73,7 @@ const PartyDetail = (): JSX.Element => {
   // async화 하기
   useEffect(() => {
     getPartyDetail();
-  }, [isWriter]);
+  }, []);
 
   return (
     <>
