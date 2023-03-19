@@ -1,6 +1,5 @@
 package com.ft.modumoa.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data

@@ -93,9 +93,15 @@ public class SlackBotService {
         return profile.get(KEY_ID).toString();
     }
 
-    public String getPrefixMessage(Long partyId, User user) {
+    public String getParticipationMessage(Long partyId, User user) {
 
         Party party = partyRepository.getReferenceById(partyId);
-        return "42gether 모집 안내입니다.\n" + user.getIntraId() + "님이 " + party.getTitle();
+        return "42gether 모집 안내입니다.\n" + user.getIntraId() + "님이 [" + party.getTitle() + "]";
+    }
+
+    public String getWhenFullMessage(Long partyId, User user) {
+
+        Party party = partyRepository.getReferenceById(partyId);
+        return "42gether 모집 안내입니다.\n[" + party.getTitle() + "]";
     }
 }

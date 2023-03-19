@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long uniqueId;
@@ -32,6 +32,7 @@ public class User {
         this.intraId = intraId;
         this.role = role;
     }
+
     public String getRoleKey() {
         return this.role.getKey();
     }

@@ -101,7 +101,6 @@ public class PartyService {
         return new PartyResponseDTO(partyId);
     }
 
-
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
 
         return PartyInfoDTO.builder()
@@ -117,7 +116,6 @@ public class PartyService {
                 .status(LocalDateTime.now().isBefore(party.getDeadline()))
                 .build();
     }
-
 
     private PartyListDTO convertEntityToPartyListDTO(Party party) {
 
@@ -142,7 +140,7 @@ public class PartyService {
                 .title(partyRequestDTO.getTitle())
                 .content(partyRequestDTO.getContent())
                 .max(partyRequestDTO.getMax())
-                .current(0)
+                .current(1)
                 .create_at(LocalDateTime.now())
                 .deadline(partyRequestDTO.getDueDate())
                 .build();
