@@ -7,8 +7,6 @@ import instance from "api/api";
 import NavBar from "components/common/NavBar";
 import { Box } from "@mui/material";
 import UserService from "api/UserService";
-import { Provider } from "react-redux";
-import store from "components/common/store";
 import { useDispatch } from "react-redux";
 
 const App = (): JSX.Element => {
@@ -31,35 +29,33 @@ const App = (): JSX.Element => {
   loadUserData();
 
   return (
-    <Provider store={store}>
-      <Box className="full">
-        <BrowserRouter>
-          <NavBar />
-          <Sheet
-            sx={{
-              width: "90%",
-              height: "85%",
-              mx: "auto", // margin left & right
-              my: 3, // margin top & botom
-              py: 1, // padding top & bottom
-              px: 1, // padding left & right
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              borderRadius: "sm",
-              boxShadow: "md",
-              alignItems: "center",
-            }}
-            variant="outlined"
-          >
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/*" element={<MainRoute />} />
-            </Routes>
-          </Sheet>
-        </BrowserRouter>
-      </Box>
-    </Provider>
+    <Box className="full">
+      <BrowserRouter>
+        <NavBar />
+        <Sheet
+          sx={{
+            width: "90%",
+            height: "85%",
+            mx: "auto", // margin left & right
+            my: 3, // margin top & botom
+            py: 1, // padding top & bottom
+            px: 1, // padding left & right
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            borderRadius: "sm",
+            boxShadow: "md",
+            alignItems: "center",
+          }}
+          variant="outlined"
+        >
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<MainRoute />} />
+          </Routes>
+        </Sheet>
+      </BrowserRouter>
+    </Box>
   );
 };
 export default App;
