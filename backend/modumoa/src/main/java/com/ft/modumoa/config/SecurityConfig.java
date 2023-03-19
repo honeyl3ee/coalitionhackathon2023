@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -67,6 +68,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/user/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/party/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/mypage/**").access("hasRole('ROLE_USER')")
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -85,7 +87,9 @@ public class SecurityConfig {
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                         Authentication authentication) throws IOException, ServletException {
                         String jwtToken = jwtUtil.makeAuthToken(authentication);
-                        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
+
+//                        response.addHeader(HttpHeaders.AUTHORIZATION, JwtProperties.TOKEN_PREFIX + jwtToken);
+                        response.sendRedirect("http://localhost:3000/?token=" + jwtToken);
                     }
                 })
                 .failureHandler(new AuthenticationFailureHandler() {

@@ -41,7 +41,7 @@ public class PartyService {
 
         party = partyRepository.save(party);
 
-        return new PartyResponseDTO(party.getId());
+        return makePartyResponseDTO(party.getId());
     }
 
     public PartyInfoDTO getPartyInfo(Long id) {
@@ -63,27 +63,44 @@ public class PartyService {
 
         partyRepository.save(party);
 
-        return new PartyResponseDTO(id);
+        return makePartyResponseDTO(id);
     }
 
     public PartyResponseDTO deleteParty(Long id) {
         partyRepository.deleteById(id);
 
-        return new PartyResponseDTO(id);
+        return makePartyResponseDTO(id);
     }
 
-    public PartyResponseDTO participateParty(Long partyId, User user) {
+    public void participateParty(Long partyId, User user) {
 
         Party party = partyRepository.getReferenceById(partyId);
-        Member member = Member.builder()
-                        .user(user)
-                        .party(party)
-                        .build();
+        int current = party.getCurrent();
+        party.setCurrent(++current);
+        partyRepository.save(party);
 
+        Member member = Member.builder()
+                .user(user)
+                .party(party)
+                .build();
         memberRepository.save(member);
+    }
+
+    public void cancelParty(Long partyId, User user) {
+        Member member = memberRepository.getMember(user.getId(), partyId);
+        memberRepository.delete(member);
+
+        Party party = partyRepository.getReferenceById(partyId);
+        int current = party.getCurrent();
+        party.setCurrent(--current);
+        partyRepository.save(party);
+    }
+
+    public PartyResponseDTO makePartyResponseDTO(Long partyId) {
 
         return new PartyResponseDTO(partyId);
     }
+
 
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
 
