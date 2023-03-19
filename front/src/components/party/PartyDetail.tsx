@@ -10,6 +10,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GroupsIcon from "@mui/icons-material/Groups";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PartyService from "api/PartyService";
+import UserService from "api/UserService";
 import { useLocation } from "react-router-dom";
 
 // TODO : type을 관리하는 파일에 모아서 관리하기 + naming
@@ -34,19 +35,20 @@ const PartyDetail = (): JSX.Element => {
 
   const [detail, setDetail] = useState<PartyDetailInfo>({
     id: 0,
-    title: "SSDC 같이 참석할 분",
-    content: "안녕하세요!\n12월 3일에 열리는 SSDC에 함께 참석하실 분 있나요?",
-    category: "컨퍼런스",
-    max: 3,
-    current: 3,
-    due_date: new Date("2023-03-22 23:00:00"),
-    create_at: new Date("2023-03-17 23:00:00"),
-    writer: "danpark",
-    participator: ["wonlim", "chanhyle"],
+    title: "",
+    content: "",
+    category: "",
+    max: 0,
+    current: 0,
+    due_date: new Date(),
+    create_at: new Date(),
+    writer: "",
+    participator: [],
     status: true,
   });
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isWriter, setIsWriter] = useState<boolean>(false);
+  const [intraId, setIntraId] = useState<string>("");
 
   const isParticipant = (user: string): boolean => {
     for (const index in detail.participator) {
@@ -62,11 +64,11 @@ const PartyDetail = (): JSX.Element => {
       due_date: new Date(response.data.due_date),
       create_at: new Date(response.data.create_at),
     });
-    // GET /user/me 호출
-    const user: string = "chanhyle";
+    const myResponse = await UserService.getMyUserId();
+    setIntraId(myResponse.data.intra_id);
 
-    if (user === detail.writer) setIsWriter(true);
-    else if (isParticipant(user)) setIsCheck(true);
+    if (intraId === detail.writer) setIsWriter(true);
+    else if (isParticipant(intraId)) setIsCheck(true);
     else setIsCheck(false);
   };
 
