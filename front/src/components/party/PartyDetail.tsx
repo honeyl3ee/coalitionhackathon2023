@@ -71,7 +71,7 @@ const PartyDetail = (): JSX.Element => {
   // async화 하기
   useEffect(() => {
     getPartyDetail();
-  }, [isCheck]);
+  }, []);
 
   return (
     <>
@@ -131,6 +131,7 @@ const PartyDetail = (): JSX.Element => {
                 id
               );
               setIsCheck(false);
+              getPartyDetail();
             }}
           >
             참여 취소할래요
@@ -142,6 +143,7 @@ const PartyDetail = (): JSX.Element => {
             onClick={async () => {
               const response = await PartyService.participatePartyDetail(id);
               setIsCheck(true);
+              getPartyDetail();
             }}
           >
             참여할래요
