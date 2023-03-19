@@ -6,6 +6,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box } from "@mui/joy";
 import { IconButton } from "@mui/joy";
 import PartyService from "api/PartyService";
+import Loading from "components/common/Loading";
 
 export type PartyInfo = {
   id: number;
@@ -40,24 +41,30 @@ const Party = (): JSX.Element => {
 
   return (
     <Box sx={{ height: "100%" }}>
-      <Stack sx={{ overflow: "auto", px: 1, height: "90%" }}>
-        {list.map((item, index) => (
-          <PartyCard key={index} party={item} />
-        ))}
-      </Stack>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <IconButton
-          aria-label="delete"
-          variant="plain"
-          sx={{}}
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          <AddCircleIcon fontSize="large" />
-        </IconButton>
-      </Box>
-      <CreateModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      {list.length === 0 ? (
+        <Loading />
+      ) : (
+        <>
+          <Stack sx={{ overflow: "auto", px: 1, height: "90%" }}>
+            {list.map((item, index) => (
+              <PartyCard key={index} party={item} />
+            ))}
+          </Stack>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <IconButton
+              aria-label="delete"
+              variant="plain"
+              sx={{}}
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              <AddCircleIcon fontSize="large" />
+            </IconButton>
+          </Box>
+          <CreateModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        </>
+      )}
     </Box>
   );
 };

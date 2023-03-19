@@ -84,71 +84,72 @@ const PartyDetail = (): JSX.Element => {
           <KeyboardArrowLeftIcon />
         </IconButton>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 1,
-          width: "80%",
-          height: "100%",
-        }}
-      >
-        <Typography sx={{ fontSize: "30px", marginY: 3 }}>
-          {detail.title}
-        </Typography>
-        <PersonCounter current={detail.current} max={detail.max} />
-        <TimeCounter dueDate={detail.due_date} />
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <AccountCircleIcon />
-          <Typography
-            level="body2"
-            sx={{ fontWeight: "md", color: "text.secondary" }}
-          >
-            {detail.writer}
+      {detail.writer === "" ? (
+        <Loading />
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+            width: "80%",
+            height: "100%",
+          }}
+        >
+          <Typography sx={{ fontSize: "30px", marginY: 3 }}>
+            {detail.title}
           </Typography>
+          <PersonCounter current={detail.current} max={detail.max} />
+          <TimeCounter dueDate={detail.due_date} />
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <AccountCircleIcon />
+            <Typography
+              level="body2"
+              sx={{ fontWeight: "md", color: "text.secondary" }}
+            >
+              {detail.writer}
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <GroupsIcon />
+            <Typography
+              level="body2"
+              sx={{ fontWeight: "md", color: "text.secondary" }}
+            >
+              {detail.participator.map((item) => item + " ")}
+            </Typography>
+          </Box>
+          <Divider sx={{ marginY: 1 }} />
+          <Box sx={{ marginY: 1, height: "30%" }}>
+            <Typography sx={{ fontSize: "20px" }}>{detail.content}</Typography>
+          </Box>
+          {isCheck ? (
+            <Button
+              variant="contained"
+              color="error"
+              disabled={isWriter}
+              onClick={async () => {
+                const response =
+                  await PartyService.cancelParticipatePartyDetail(id);
+                setIsCheck(false);
+              }}
+            >
+              참여 취소할래요
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              disabled={isWriter}
+              onClick={async () => {
+                const response = await PartyService.participatePartyDetail(id);
+                setIsCheck(true);
+              }}
+            >
+              참여할래요
+            </Button>
+          )}
         </Box>
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <GroupsIcon />
-          <Typography
-            level="body2"
-            sx={{ fontWeight: "md", color: "text.secondary" }}
-          >
-            {detail.participator.map((item) => item + " ")}
-          </Typography>
-        </Box>
-        <Divider sx={{ marginY: 1 }} />
-        <Box sx={{ marginY: 1, height: "30%" }}>
-          <Typography sx={{ fontSize: "20px" }}>{detail.content}</Typography>
-        </Box>
-        {detail.writer === "" ? (
-          <Loading />
-        ) : isCheck ? (
-          <Button
-            variant="contained"
-            color="error"
-            disabled={isWriter}
-            onClick={async () => {
-              const response = await PartyService.cancelParticipatePartyDetail(
-                id
-              );
-              setIsCheck(false);
-            }}
-          >
-            참여 취소할래요
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            disabled={isWriter}
-            onClick={async () => {
-              const response = await PartyService.participatePartyDetail(id);
-              setIsCheck(true);
-            }}
-          >
-            참여할래요
-          </Button>
-        )}
-      </Box>
+      )}
     </>
   );
 };
