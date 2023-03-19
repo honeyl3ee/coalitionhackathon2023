@@ -12,6 +12,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PartyService from "api/PartyService";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loading from "components/common/Loading";
 
 // TODO : type을 관리하는 파일에 모아서 관리하기 + naming
 export type PartyDetailInfo = {
@@ -119,7 +120,9 @@ const PartyDetail = (): JSX.Element => {
         <Box sx={{ marginY: 1, height: "30%" }}>
           <Typography sx={{ fontSize: "20px" }}>{detail.content}</Typography>
         </Box>
-        {isCheck ? (
+        {detail.writer === "" ? (
+          <Loading />
+        ) : isCheck ? (
           <Button
             variant="contained"
             color="error"

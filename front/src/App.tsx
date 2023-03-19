@@ -8,6 +8,7 @@ import NavBar from "components/common/NavBar";
 import { Box } from "@mui/material";
 import UserService from "api/UserService";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ const App = (): JSX.Element => {
     }
   };
 
-  loadUserData();
+  useEffect(() => {
+    loadUserData();
+  }, []);
 
   return (
     <Box className="full">
