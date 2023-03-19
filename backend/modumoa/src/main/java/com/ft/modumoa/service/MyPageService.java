@@ -36,7 +36,7 @@ public class MyPageService {
         for (Member m : member) {
             party.add(m.getParty());
         }
-        List < MyPartyDTO > participated = party
+        List<MyPartyDTO> participated = party
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());

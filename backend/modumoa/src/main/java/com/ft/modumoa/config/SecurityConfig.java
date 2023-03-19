@@ -1,16 +1,14 @@
 package com.ft.modumoa.config;
 
 import com.ft.modumoa.config.auth.PrincipalDetailsService;
-import com.ft.modumoa.config.jwt.JwtProperties;
-import com.ft.modumoa.config.jwt.JwtUtil;
 import com.ft.modumoa.config.jwt.JwtAuthenticationFilter;
+import com.ft.modumoa.config.jwt.JwtUtil;
 import com.ft.modumoa.config.oauth.CustomOAuth2UserService;
 import com.ft.modumoa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -38,17 +36,14 @@ import java.io.IOException;
 public class SecurityConfig {
 
     private final CorsFilter corsFilter;
-
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
     @Autowired
     private PrincipalDetailsService principalDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtUtil jwtUtil;
-
     @Autowired
     private UserRepository userRepository;
 

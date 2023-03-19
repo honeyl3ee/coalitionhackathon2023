@@ -26,7 +26,7 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
-    private String convertEntityToDTO(Member member){
+    private String convertEntityToDTO(Member member) {
         return member.getUser().getIntraId();
     }
 }

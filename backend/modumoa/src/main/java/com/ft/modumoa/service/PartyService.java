@@ -101,7 +101,6 @@ public class PartyService {
         return new PartyResponseDTO(partyId);
     }
 
-
     private PartyInfoDTO convertEntityToPartyInfoDTO(Party party) {
 
         return PartyInfoDTO.builder()
@@ -117,7 +116,6 @@ public class PartyService {
                 .status(LocalDateTime.now().isBefore(party.getDeadline()))
                 .build();
     }
-
 
     private PartyListDTO convertEntityToPartyListDTO(Party party) {
 

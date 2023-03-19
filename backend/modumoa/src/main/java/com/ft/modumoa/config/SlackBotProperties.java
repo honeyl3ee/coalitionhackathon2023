@@ -1,7 +1,5 @@
 package com.ft.modumoa.config;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public interface SlackBotProperties {
 
     String CHANNEL = "channel";

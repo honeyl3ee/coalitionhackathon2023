@@ -40,11 +40,12 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public String getPassword() {
         return null;
     }
-    public User getUser(){
+
+    public User getUser() {
         return user;
     }
 
-    public Long getUniqueId(){
+    public Long getUniqueId() {
         return user.getUniqueId();
     }
 
