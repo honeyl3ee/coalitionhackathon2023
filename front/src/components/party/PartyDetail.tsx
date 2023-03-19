@@ -65,6 +65,7 @@ const PartyDetail = (): JSX.Element => {
       create_at: new Date(response.data.create_at),
     });
     const myResponse = await UserService.getMyUserId();
+    console.log(myResponse.data);
     setIntraId(myResponse.data.intra_id);
 
     if (intraId === detail.writer) setIsWriter(true);
