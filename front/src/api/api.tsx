@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:8080";
+const apiURL =
+  "http://42gether-env.eba-vuhv3mur.ap-northeast-2.elasticbeanstalk.com";
 
 const instance = axios.create({
   baseURL: apiURL,
