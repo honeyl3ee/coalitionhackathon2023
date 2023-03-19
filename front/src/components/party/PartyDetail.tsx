@@ -50,17 +50,6 @@ const PartyDetail = (): JSX.Element => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isWriter, setIsWriter] = useState<boolean>(false);
 
-  const isParticipant = (user: string): boolean => {
-    for (const index in detail.participator) {
-      if (detail.participator[index] === user) return true;
-    }
-    return false;
-  };
-
-  if (intraId === detail.writer) setIsWriter(true);
-  else if (isParticipant(intraId)) setIsCheck(true);
-  else setIsCheck(false);
-
   const getPartyDetail = async () => {
     const response = await PartyService.getPartyDetail(id); // 없는 페이지일 경우 404를 받도록?
     setDetail({
@@ -68,6 +57,11 @@ const PartyDetail = (): JSX.Element => {
       due_date: new Date(response.data.due_date),
       create_at: new Date(response.data.create_at),
     });
+    if (intraId === response.data.writer) setIsWriter(true);
+    else {
+      for (const index in response.data.participator)
+        if (response.data.participator[index] === intraId) setIsCheck(true);
+    }
   };
 
   // async화 하기
