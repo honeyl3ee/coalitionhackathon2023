@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PartyCard from "components/party/PartyCard";
 import CreateModal from "components/party/CreateModal";
 import Stack from "@mui/joy/Stack";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box } from "@mui/joy";
 import { IconButton } from "@mui/joy";
-import { Typography } from "@mui/joy";
-import { Divider } from "@mui/material";
+import PartyService from "api/PartyService";
 
 export type PartyInfo = {
   id: number;
@@ -92,24 +91,37 @@ const Party = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const getPartyList = async () => {
+    // const response = await PartyService.getPartyList();
+    // console.log(response.data);
+    // setList(response.data);
+  };
+
+  useEffect(() => {
+    getPartyList();
+  }, []);
+
   return (
-    <>
+    <Box sx={{ height: "100%" }}>
       <Stack sx={{ overflow: "auto", px: 1, height: "90%" }}>
         {list.map((item) => (
           <PartyCard party={item} />
         ))}
       </Stack>
-      <IconButton
-        aria-label="delete"
-        variant="plain"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        <AddCircleIcon fontSize="large" />
-      </IconButton>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <IconButton
+          aria-label="delete"
+          variant="plain"
+          sx={{}}
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <CreateModal isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+    </Box>
   );
 };
 
