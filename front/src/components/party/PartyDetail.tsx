@@ -53,6 +53,7 @@ const PartyDetail = (): JSX.Element => {
   const getUserId = async () => {
     const myResponse = await UserService.getMyUserId();
     setIntraId(myResponse.data.intra_id);
+    return new Promise(() => {});
   };
 
   const isParticipant = (user: string): boolean => {
@@ -77,8 +78,9 @@ const PartyDetail = (): JSX.Element => {
 
   // async화 하기
   useEffect(() => {
-    getUserId();
-    getPartyDetail();
+    getUserId().then(() => {
+      getPartyDetail();
+    });
   }, [isCheck, intraId]);
 
   return (
