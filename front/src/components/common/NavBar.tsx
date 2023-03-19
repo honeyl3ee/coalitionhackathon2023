@@ -1,17 +1,14 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -20,26 +17,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Link } from "react-router-dom";
 
-const drawerWidth = 240;
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginRight: -drawerWidth,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  }),
-}));
+const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -107,14 +85,14 @@ export default function PersistentDrawerRight() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/" style={{ textDecoration: "none", flexGrow: 1 }}>
+          <Link to="/party" style={{ textDecoration: "none", flexGrow: 1 }}>
             <Typography
               variant="h6"
               component="h1"
               align="center"
               sx={{ color: "#ffffff" }}
             >
-              모두모아
+              42gether
             </Typography>
           </Link>
         </Toolbar>
@@ -135,28 +113,28 @@ export default function PersistentDrawerRight() {
             <Link
               to="/"
               style={{ color: "black", textDecoration: "none" }}
-              key="홈"
+              key="모집 목록"
             >
-              <ListItem key="홈" disablePadding>
+              <ListItem key="모집 목록" disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <InboxIcon />
                   </ListItemIcon>
-                  <ListItemText primary="홈" />
+                  <ListItemText primary="모집 목록" />
                 </ListItemButton>
               </ListItem>
             </Link>
             <Link
-              to="/mypage"
+              to="/logout"
               style={{ color: "black", textDecoration: "none" }}
-              key="마이페이지"
+              key="로그아웃"
             >
-              <ListItem key="마이페이지" disablePadding>
+              <ListItem key="로그아웃" disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <MailIcon />
                   </ListItemIcon>
-                  <ListItemText primary="마이페이지" />
+                  <ListItemText primary="로그아웃" />
                 </ListItemButton>
               </ListItem>
             </Link>
