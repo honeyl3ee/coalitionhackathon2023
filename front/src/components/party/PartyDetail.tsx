@@ -64,7 +64,12 @@ const PartyDetail = (): JSX.Element => {
       due_date: new Date(response.data.due_date),
       create_at: new Date(response.data.create_at),
     });
-
+    console.log(
+      response.data.writer,
+      response.data.participator,
+      intraId === response.data.writer,
+      isParticipant(intraId)
+    );
     if (intraId === detail.writer) setIsWriter(true);
     else if (isParticipant(intraId)) setIsCheck(true);
     else setIsCheck(false);
