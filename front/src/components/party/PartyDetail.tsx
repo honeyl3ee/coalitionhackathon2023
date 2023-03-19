@@ -10,8 +10,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GroupsIcon from "@mui/icons-material/Groups";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PartyService from "api/PartyService";
-import UserService from "api/UserService";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // TODO : type을 관리하는 파일에 모아서 관리하기 + naming
 export type PartyDetailInfo = {
@@ -32,6 +32,7 @@ const PartyDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const id: number = parseInt(location.pathname.split("/")[2]);
+  const intraId = useSelector((state: any) => state.intraId);
 
   const [detail, setDetail] = useState<PartyDetailInfo>({
     id: 0,
@@ -48,15 +49,6 @@ const PartyDetail = (): JSX.Element => {
   });
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isWriter, setIsWriter] = useState<boolean>(false);
-  const [intraId, setIntraId] = useState<string>("");
-
-  const getUserId = async () => {
-    const myResponse = await UserService.getMyUserId();
-    setIntraId(myResponse.data.intra_id);
-    return new Promise((resolve) => {
-      resolve(true);
-    });
-  };
 
   const isParticipant = (user: string): boolean => {
     for (const index in detail.participator) {
@@ -80,10 +72,8 @@ const PartyDetail = (): JSX.Element => {
 
   // async화 하기
   useEffect(() => {
-    getUserId().then(() => {
-      getPartyDetail();
-    });
-  }, [isCheck, intraId]);
+    getPartyDetail();
+  }, [isCheck]);
 
   return (
     <>
