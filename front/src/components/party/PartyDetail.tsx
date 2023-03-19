@@ -57,7 +57,11 @@ const PartyDetail = (): JSX.Element => {
 
   const getPartyDetail = async () => {
     const response = await PartyService.getPartyDetail(id); // 없는 페이지일 경우 404를 받도록?
-    setDetail(response.data);
+    setDetail({
+      ...response.data,
+      due_date: new Date(response.data.due_date),
+      create_at: new Date(response.data.create_at),
+    });
     // GET /user/me 호출
     const user: string = "chanhyle";
 
