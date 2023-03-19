@@ -71,9 +71,10 @@ const ModalInput = (props: HandlePartyForm) => {
           >
             <Option value="스터디">스터디</Option>
             <Option value="배달">배달</Option>
-            <Option value="컨퍼런스">컨퍼런스</Option>
+            <Option value="동아리">동아리</Option>
             <Option value="탁구">탁구</Option>
             <Option value="게임">게임</Option>
+            <Option value="컨퍼런스">컨퍼런스</Option>
             <Option value="봉사">봉사</Option>
             <Option value="기타">기타</Option>
           </Select>

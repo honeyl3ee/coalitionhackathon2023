@@ -37,9 +37,8 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
     if (!partyForm.dueDate || partyForm.dueDate < dayjs(new Date()))
       return alert("현재 이후의 날짜를 선택해주세요!");
     if (partyForm.category === "") return alert("카테고리를 선택해주세요!");
-    // const response = PartyService.createParty(partyForm);
-    const id = 0;
-    navigate(`/party/${id}`);
+    const response = await PartyService.createParty(partyForm);
+    navigate(`/party/${response.data.id}`);
   };
 
   return (
@@ -73,7 +72,6 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
           onChange={(e) => {
             if (e) {
               const target = e.target as HTMLInputElement;
-              // setTitle(target.value);
               setPartyForm({ ...partyForm, title: target.value });
             }
           }}
