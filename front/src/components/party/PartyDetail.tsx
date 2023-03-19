@@ -23,7 +23,7 @@ export type PartyDetailInfo = {
   due_date: Date;
   create_at: Date;
   writer: string;
-  participant: string[];
+  participator: string[];
   status: boolean;
 };
 
@@ -42,22 +42,22 @@ const PartyDetail = (): JSX.Element => {
     due_date: new Date("2023-03-22 23:00:00"),
     create_at: new Date("2023-03-17 23:00:00"),
     writer: "danpark",
-    participant: ["wonlim", "chanhyle"],
+    participator: ["wonlim", "chanhyle"],
     status: true,
   });
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [isWriter, setIsWriter] = useState<boolean>(false);
 
   const isParticipant = (user: string): boolean => {
-    for (const index in detail.participant) {
-      if (detail.participant[index] === user) return true;
+    for (const index in detail.participator) {
+      if (detail.participator[index] === user) return true;
     }
     return false;
   };
 
   const getPartyDetail = async () => {
-    // const response = PartyService.getPartyDetail(id); // 없는 페이지일 경우 404를 받도록?
-    // setDetail(response.data);
+    const response = await PartyService.getPartyDetail(id); // 없는 페이지일 경우 404를 받도록?
+    setDetail(response.data);
     // GET /user/me 호출
     const user: string = "chanhyle";
 
@@ -111,7 +111,7 @@ const PartyDetail = (): JSX.Element => {
             level="body2"
             sx={{ fontWeight: "md", color: "text.secondary" }}
           >
-            {detail.participant.map((item) => item + " ")}
+            {detail.participator.map((item) => item + " ")}
           </Typography>
         </Box>
         <Divider sx={{ marginY: 1 }} />
