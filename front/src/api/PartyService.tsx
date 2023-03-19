@@ -5,7 +5,12 @@ const partyUrl = (path = "") => {
 };
 
 const PartyService = {
-  getPartyList: async () => await instance.get(partyUrl(``)),
+  getPartyList: async () =>
+    await instance.get(partyUrl(``), {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }),
   createParty: async (body: any) =>
     await instance.post(partyUrl(`/create`), body),
   getPartyDetail: async (id: number) => await instance.get(partyUrl(`/${id}`)),

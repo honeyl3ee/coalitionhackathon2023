@@ -14,6 +14,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
+      window.location.href = "/login";
     } else if (error.response.status === 403) {
       alert("설정 권한이 없습니다.");
     } else if (error.response.status === 404) {
