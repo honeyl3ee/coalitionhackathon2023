@@ -75,7 +75,7 @@ const PartyDetail = (): JSX.Element => {
 
   useEffect(() => {
     getPartyDetail();
-  }, [isCheck]);
+  }, [isCheck, intraId]);
 
   return (
     <>
