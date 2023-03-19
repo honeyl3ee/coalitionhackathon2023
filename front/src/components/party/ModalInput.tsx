@@ -9,15 +9,16 @@ import Option from "@mui/joy/Option";
 import { Box } from "@mui/material";
 import Slider from "@mui/joy/Slider";
 import { Typography } from "@mui/joy";
+import { PartyForm } from "./CreateModal";
 
-type HandleState = {
-  state: number | Dayjs | string | null;
-  setState: Function;
+type HandlePartyForm = {
+  partyForm: PartyForm;
+  setPartyForm: Function;
   type: string;
 };
 
-const ModalInput = (props: HandleState) => {
-  const marks = [];
+const ModalInput = (props: HandlePartyForm) => {
+  const marks = []; // type : Mark[]
   for (let i = 2; i <= 10; i++) marks.push({ value: i, label: `${i}` });
 
   return (
@@ -44,8 +45,11 @@ const ModalInput = (props: HandleState) => {
             valueLabelDisplay="auto"
             onChange={(e) => {
               if (e) {
-                const target = e.target as HTMLInputElement;
-                props.setState(target.value);
+                const target: HTMLInputElement = e.target as HTMLInputElement;
+                props.setPartyForm({
+                  ...props.partyForm,
+                  maxCount: target.value,
+                });
               }
             }}
           />
@@ -57,8 +61,11 @@ const ModalInput = (props: HandleState) => {
             placeholder="카테고리를 선택하세요"
             onChange={(e) => {
               if (e) {
-                const target = e.target as HTMLInputElement;
-                props.setState(target.outerText);
+                const target: HTMLInputElement = e.target as HTMLInputElement;
+                props.setPartyForm({
+                  ...props.partyForm,
+                  category: target.outerText,
+                });
               }
             }}
           >
@@ -77,9 +84,9 @@ const ModalInput = (props: HandleState) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DateTimePicker"]}>
               <DateTimePicker
-                value={props.state}
+                value={props.partyForm.dueDate}
                 onChange={(newValue) => {
-                  props.setState(newValue);
+                  props.setPartyForm({ ...props.partyForm, dueDate: newValue });
                 }}
               />
             </DemoContainer>

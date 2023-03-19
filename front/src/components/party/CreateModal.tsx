@@ -2,7 +2,6 @@ import { useState } from "react";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import ModalDialog from "@mui/joy/ModalDialog";
-import { IconButton } from "@mui/joy";
 import { Box } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
@@ -10,23 +9,37 @@ import { Divider } from "@mui/material";
 import { Typography } from "@mui/joy";
 import { Button } from "@mui/material";
 import ModalInput from "./ModalInput";
+import PartyService from "api/PartyService";
+import { useNavigate } from "react-router-dom";
 
 type HandleIsOpen = { isOpen: boolean; setIsOpen: Function };
+export type PartyForm = {
+  title: string | null;
+  content: string | null;
+  maxCount: number | null;
+  dueDate: Dayjs | null;
+  category: string | null;
+};
 
 const CreateModal = (props: HandleIsOpen): JSX.Element => {
-  const [title, setTitle] = useState<string | null>("");
-  const [content, setContent] = useState<string | null>("");
-  const [maxCount, setMaxCount] = useState<number | null>(2);
-  const [dueDate, setDueDate] = useState<Dayjs | null>(dayjs(new Date()));
-  const [category, setCategory] = useState<string | null>("");
+  const navigate = useNavigate();
+  const [partyForm, setPartyForm] = useState<PartyForm>({
+    title: "",
+    content: "",
+    maxCount: 2,
+    dueDate: dayjs(new Date()),
+    category: "",
+  });
 
-  const createParty = () => {
-    if (title === "") return alert("제목을 입력해주세요!");
-    if (content === "") return alert("내용을 입력해주세요!");
-    if (!dueDate || dueDate < dayjs(new Date()))
+  const createParty = async () => {
+    if (partyForm.title === "") return alert("제목을 입력해주세요!");
+    if (partyForm.content === "") return alert("내용을 입력해주세요!");
+    if (!partyForm.dueDate || partyForm.dueDate < dayjs(new Date()))
       return alert("현재 이후의 날짜를 선택해주세요!");
-    if (category === "") return alert("카테고리를 선택해주세요!");
-    // api 호출
+    if (partyForm.category === "") return alert("카테고리를 선택해주세요!");
+    // const response = PartyService.createParty(partyForm);
+    const id = 0;
+    navigate(`/party/${id}`);
   };
 
   return (
@@ -60,7 +73,8 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
           onChange={(e) => {
             if (e) {
               const target = e.target as HTMLInputElement;
-              setTitle(target.value);
+              // setTitle(target.value);
+              setPartyForm({ ...partyForm, title: target.value });
             }
           }}
         />
@@ -71,13 +85,25 @@ const CreateModal = (props: HandleIsOpen): JSX.Element => {
           onChange={(e) => {
             if (e) {
               const target = e.target as HTMLInputElement;
-              setContent(target.value);
+              setPartyForm({ ...partyForm, content: target.value });
             }
           }}
         />
-        <ModalInput state={maxCount} setState={setMaxCount} type="maxCount" />
-        <ModalInput state={dueDate} setState={setDueDate} type="dueDate" />
-        <ModalInput state={category} setState={setCategory} type="category" />
+        <ModalInput
+          partyForm={partyForm}
+          setPartyForm={setPartyForm}
+          type="maxCount"
+        />
+        <ModalInput
+          partyForm={partyForm}
+          setPartyForm={setPartyForm}
+          type="dueDate"
+        />
+        <ModalInput
+          partyForm={partyForm}
+          setPartyForm={setPartyForm}
+          type="category"
+        />
         <Button variant="contained" onClick={createParty} sx={{ marginTop: 5 }}>
           생성
         </Button>
