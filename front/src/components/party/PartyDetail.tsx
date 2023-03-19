@@ -65,7 +65,9 @@ const PartyDetail = (): JSX.Element => {
       create_at: new Date(response.data.create_at),
     });
     if (intraId === detail.writer) setIsWriter(true);
-    else if (isParticipant(intraId)) setIsCheck(true);
+    else setIsWriter(false);
+    if (isParticipant(intraId)) setIsCheck(true);
+    else setIsCheck(false);
   };
 
   // async화 하기
