@@ -50,6 +50,11 @@ const PartyDetail = (): JSX.Element => {
   const [isWriter, setIsWriter] = useState<boolean>(false);
   const [intraId, setIntraId] = useState<string>("");
 
+  const getUserId = async () => {
+    const myResponse = await UserService.getMyUserId();
+    setIntraId(myResponse.data.intra_id);
+  };
+
   const isParticipant = (user: string): boolean => {
     for (const index in detail.participator) {
       if (detail.participator[index] === user) return true;
@@ -64,16 +69,15 @@ const PartyDetail = (): JSX.Element => {
       due_date: new Date(response.data.due_date),
       create_at: new Date(response.data.create_at),
     });
-    const myResponse = await UserService.getMyUserId();
-    console.log(myResponse.data);
-    setIntraId(myResponse.data.intra_id);
 
     if (intraId === detail.writer) setIsWriter(true);
     else if (isParticipant(intraId)) setIsCheck(true);
     else setIsCheck(false);
   };
 
+  // async화 하기
   useEffect(() => {
+    getUserId();
     getPartyDetail();
   }, [isCheck, intraId]);
 
