@@ -4,25 +4,22 @@ import qs from "query-string";
 import Loading from "components/common/Loading";
 import instance from "api/api";
 import "styles/index.scss";
+import { es } from "date-fns/locale";
 
 const Home = (): JSX.Element => {
   const navigate = useNavigate();
+  const params: qs.ParsedQuery<string> = qs.parse(window.location.search);
 
   const getAccessToken = async () => {
-    const params = qs.parse(window.location.search);
-    let response;
-    // response = await LoginService.login42.issueAccessToken(params.code);
-    // localStorage.setItem("ftAccessToken", response.data.ftAccessToken);
-    // response = await LoginService.login.issueAccessToken({
-    //   ftAccessToken: response.data.ftAccessToken,
-    // });
-    // localStorage.setItem("accessToken", response.data.accessToken);
-    // instance.defaults.headers.common[
-    //   "Authorization"
-    // ] = `Bearer ${response.data.accessToken}`;
-    // setTimeout(() => {
-    //   navigate("/party");
-    // }, 1000);
+    if (Object.keys(params).length !== 0) {
+      if (typeof params.token === "string")
+        localStorage.setItem("accessToken", params.token);
+      else throw new Error("Value must be a string");
+      instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${params.token}`;
+      navigate("/party");
+    }
   };
 
   useEffect(() => {

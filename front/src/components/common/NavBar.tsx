@@ -15,6 +15,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const drawerWidth: number = 240;
@@ -85,7 +86,7 @@ export default function PersistentDrawerRight() {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/party" style={{ textDecoration: "none", flexGrow: 1 }}>
+          <Link to="/" style={{ textDecoration: "none", flexGrow: 1 }}>
             <Typography
               variant="h6"
               component="h1"
@@ -117,13 +118,28 @@ export default function PersistentDrawerRight() {
             >
               <ListItem key="모집 목록" disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <InboxIcon />
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText primary="모집 목록" />
                 </ListItemButton>
               </ListItem>
             </Link>
+            <Link
+              to="/mypage"
+              style={{ color: "black", textDecoration: "none" }}
+              key="마이페이지"
+            >
+              <ListItem key="마이페이지" disablePadding>
+                <ListItemButton>
+                  {/* <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon> */}
+                  <ListItemText primary="마이페이지" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Divider />
             <Link
               to="/logout"
               style={{ color: "black", textDecoration: "none" }}
@@ -131,9 +147,9 @@ export default function PersistentDrawerRight() {
             >
               <ListItem key="로그아웃" disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     <MailIcon />
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText primary="로그아웃" />
                 </ListItemButton>
               </ListItem>
