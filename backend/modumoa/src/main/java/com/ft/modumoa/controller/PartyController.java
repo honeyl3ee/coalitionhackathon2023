@@ -3,6 +3,7 @@ package com.ft.modumoa.controller;
 import com.ft.modumoa.config.auth.PrincipalDetails;
 import com.ft.modumoa.dto.*;
 import com.ft.modumoa.service.PartyService;
+import com.ft.modumoa.service.SlackBotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,10 @@ public class PartyController {
 
     @Autowired
     private PartyService partyService;
+
+    @Autowired
+    private SlackBotService slackBotService;
+
 
     @GetMapping("/party")
     public List<PartyListDTO> getPartyList() {
@@ -48,6 +53,23 @@ public class PartyController {
     @GetMapping("/party/{id}/participate")
     public PartyResponseDTO participateParty(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails user) {
 
-        return partyService.participateParty(id, user.getUser());
+        String message = slackBotService.getPrefixMessage(id, user.getUser());
+
+        partyService.participateParty(id, user.getUser());
+        slackBotService.sendMessageToUser(id, message + "에 참여를 신청하였습니다.");
+        slackBotService.isFull(id, user.getUser(), message + " 모집이 완료되었습니다.");
+
+        return partyService.makePartyResponseDTO(id);
+    }
+
+    @GetMapping("/party/{id}/participate/cancel")
+    public PartyResponseDTO cancelParty(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails user) {
+
+        String message = slackBotService.getPrefixMessage(id, user.getUser());
+
+        partyService.cancelParty(id, user.getUser());
+        slackBotService.sendMessageToUser(id, message + " 참여를 취소하였습니다.");
+
+        return partyService.makePartyResponseDTO(id);
     }
 }
