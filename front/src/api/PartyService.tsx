@@ -15,6 +15,8 @@ const PartyService = {
     await instance.get(partyUrl(`/${id}/delete`)),
   participatePartyDetail: async (id: number) =>
     await instance.get(partyUrl(`/${id}/participate`)),
+  cancelParticipatePartyDetail: async (id: number) =>
+    await instance.get(partyUrl(`/${id}/participate/cancel`)),
 };
 
 export default PartyService;

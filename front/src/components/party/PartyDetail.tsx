@@ -74,7 +74,7 @@ const PartyDetail = (): JSX.Element => {
 
   useEffect(() => {
     getPartyDetail();
-  }, [detail]);
+  }, [isCheck]);
 
   return (
     <>
@@ -129,7 +129,8 @@ const PartyDetail = (): JSX.Element => {
             variant="contained"
             color="error"
             disabled={isWriter}
-            onClick={() => {
+            onClick={async () => {
+              const response = await PartyService.participatePartyDetail(id);
               setIsCheck(false);
             }}
           >
@@ -139,7 +140,10 @@ const PartyDetail = (): JSX.Element => {
           <Button
             variant="contained"
             disabled={isWriter}
-            onClick={() => {
+            onClick={async () => {
+              const response = await PartyService.cancelParticipatePartyDetail(
+                id
+              );
               setIsCheck(true);
             }}
           >
